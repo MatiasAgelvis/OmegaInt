@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
 			A = X + Y;
 			testC("Addition '+'", A == (X + Y) );
 			testC("Test add zero", (A + 0) == A);
-			
+
 			A = 3; A += OmegaInt(1);
 			testC("Operator +=", A == 4);
 			testC("Addition '+' ++", (OmegaInt(27) + OmegaInt(7)) == 34 );
@@ -118,7 +118,7 @@ int main(int argc, char const *argv[])
 			testC("Subtraction '-' -+", (OmegaInt(-27) - OmegaInt(7)) == -34 );
 			testC("Subtraction '-' --", (OmegaInt(-27) - OmegaInt(-7)) == -20 );
 		}
-		
+
 		if ( compare(argv[i],"x") or compare(argv[1],"all"))
 		{
 			testC("1 Digit Multiplication", OmegaInt(2) * OmegaInt(2) == 4);
@@ -129,15 +129,15 @@ int main(int argc, char const *argv[])
 			testC("- * - Multiplication", OmegaInt(-12345) * OmegaInt(-6789) == 83810205);
 			testC("5 Digit Multiplication", OmegaInt(12345) * OmegaInt(6789) == 83810205);
 
-			testC("16 Digit Multiplication", OmegaInt("1092384710293847") * OmegaInt("1092384710293847") 
+			testC("16 Digit Multiplication", OmegaInt("1092384710293847") * OmegaInt("1092384710293847")
 																== "1193304355283772039845086059409");
 
-			testC("64 Digit Multiplication", OmegaInt("3141592653589793238462643383279502884197169399375105820974944592") 
-										   * OmegaInt("2718281828459045235360287471352662497757247093699959574966967627") 
+			testC("64 Digit Multiplication", OmegaInt("3141592653589793238462643383279502884197169399375105820974944592")
+										   * OmegaInt("2718281828459045235360287471352662497757247093699959574966967627")
 													== "8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184");
 
-			testC( "212 Digit Multiplication", OmegaInt("27182818284590452353602829837409234659812834692837659238476574713526624977534972470345936999595749669676271238410298409234875923831415926535897932384626433832795028842837491328478321971987369399375105820974944592") 
-												* OmegaInt("27182818284590452353602829837409234659812834692837659238476574713526624977534972470345936999595749669676271238410298409234875923831415926535897932384626433832795028842837491328478321971987369399375105820974944592") 
+			testC( "212 Digit Multiplication", OmegaInt("27182818284590452353602829837409234659812834692837659238476574713526624977534972470345936999595749669676271238410298409234875923831415926535897932384626433832795028842837491328478321971987369399375105820974944592")
+												* OmegaInt("27182818284590452353602829837409234659812834692837659238476574713526624977534972470345936999595749669676271238410298409234875923831415926535897932384626433832795028842837491328478321971987369399375105820974944592")
 											== "738905609893065022723040306338812103403690869683176224646524075329403239381000705130240528793667901575103384514255161480205215799687383613757095682703930175950904351659328420371856756618493649480324118217553822251088493797632925153114551664381475270521027369906603232527693994952884709313387584104310591674284595556118512001880922214682100257256821788916821002367137392684790030227970848898031312651967598223967837470046464");
 
 			testC( "Power Operator ^" , (OmegaInt(3)^OmegaInt(3)) == 27 );
@@ -146,33 +146,34 @@ int main(int argc, char const *argv[])
 
 		if ( compare(argv[i],"/") or compare(argv[1],"all"))
 		{
-			testC("Divition Operator '/' ",  OmegaInt(10) / OmegaInt(2) == 5);
+			testC("Division Operator '/' ",  OmegaInt(10) / OmegaInt(2) == 5);
 
-			testC("Divition Operator Removing Tail zeros '/' ",  OmegaInt(10000000000) 
+			testC("Division Operator Removing Tail zeros '/' ",  OmegaInt(10000000000)
 																/ OmegaInt(2000000000) == 5);
 
-			testC("Divition Operator 8 Digits '/' ",  OmegaInt("12345678") / OmegaInt("12345") == "1000");
+			testC("Division Operator 8 Digits '/' ",  OmegaInt("12345678") / OmegaInt("12345") == "1000");
 
-			testC("Divition Operator 14 Digits '/' ",  OmegaInt("33698323079548") / OmegaInt("398457209") == "84572");
+			testC("Division Operator 14 Digits '/' ",  OmegaInt("33698323079548") / OmegaInt("398457209") == "84572");
 
-			testC("Divition Operator 16 Digits '/' ",  OmegaInt("1193304355283772039845086059409") 
+			testC("Division Operator 16 Digits '/' ",  OmegaInt("1193304355283772039845086059409")
 													/ OmegaInt("1092384710293847") == "1092384710293847");
 
-			testC("Divition Operator 16 Digits '/' ",  OmegaInt("5671245623433698323079548") 
-													 / OmegaInt("1092384710293847") == "5191619371");
-			testC("Divition Operator 16 Digits '/' ",  OmegaInt("5671245623433698323079548") 
-													 / OmegaInt("1092384710293847") == "5191619371");
+			testC("Division Operator 16 Digits '/' ",  OmegaInt("5671245623433698323079548")
+									                 / OmegaInt("1092384710293847") == "5191619371");
 
-			testC("Divition Operator Single word denominator '/' ",  OmegaInt("56712456234336983") 
-																	/ OmegaInt("134") == "423227285330873");
+			testC("Division Operator 16 Digits '/' ",  OmegaInt("5671245623433698323079548")
+									                 / OmegaInt("1092384710293847") == "5191619371");
 
-			testC("Reminder Operator '%' ",  OmegaInt(11) % OmegaInt(2) == 1);
-			// testC("Reminder Operator '%' ",  OmegaInt(-11) % OmegaInt(2) == 1);
+			testC("Division Operator Single word denominator '/' ",  OmegaInt("56712456234336983")
+																   / OmegaInt("134") == "423227285330873");
+
+			testC("Remainder Operator '%' ",  OmegaInt(11) % OmegaInt(2) == 1);
+			// testC("Remainder Operator '%' ",  OmegaInt(-11) % OmegaInt(2) == 1);
 		}
 
 		if ( compare(argv[i],"utils") or compare(argv[1],"all"))
 		{
-			testC("String Consrtuctor with 0 -> OmegaInt(\"0\") ", OmegaInt("0") == 0);
+			testC("String Constructor with 0 -> OmegaInt(\"0\") ", OmegaInt("0") == 0);
 			A = OmegaInt(MAXFIELDVALUE - 1) + 1;
 			testC("Maintenance Giving", A == MAXFIELDVALUE and A.fields() == 2);
 
@@ -182,7 +183,7 @@ int main(int argc, char const *argv[])
 			testC("Test abs", A.abs() == 1);
 			A = 12345678;
 			testC("Test num of digits positive", A.digits() == 8);
-			testC("Consrtuctor: Templated", OmegaInt(-12) == -12);
+			testC("Constructor: Templated", OmegaInt(-12) == -12);
 			testC("Friend Operators (int)", -12 + OmegaInt(-4) == -16);
 			testC("Friend Operators (int)", -12 + OmegaInt(4) == -8);
 			testC("Friend Operators (string)", "-12" + OmegaInt(4) == -8);
@@ -202,7 +203,7 @@ int main(int argc, char const *argv[])
 
 			testC("lcm", OmegaUtils::lcm( 12, 15 ) == 60 );
 			testC("lcm", OmegaUtils::lcm( 9012983, 2389470 ) == 21536252489010 );
-			
+
 			X = "70293487502938475023984750239876";
 			Y = "23984787216548758649586932847653";
 			// A = OmegaUtils::GCD(X,Y);
@@ -211,7 +212,7 @@ int main(int argc, char const *argv[])
 			X = "10";
 			Y = "5";
 			// the std::min and max also work
-			testC("min", OmegaUtils::min( X, Y ) == Y ); 
+			testC("min", OmegaUtils::min( X, Y ) == Y );
 			testC("min", OmegaUtils::min( Y, X ) == Y );
 			testC("MAX", OmegaUtils::max( X, Y ) == X );
 			testC("MAX", OmegaUtils::max( Y, X ) == X );
@@ -229,11 +230,11 @@ int main(int argc, char const *argv[])
 
 			testC("Operator == (++)", OmegaInt(3) == OmegaInt(3));
 			testC("Operator == (--)", OmegaInt(-3) == OmegaInt(-3));
-			testC("Operator == (LARGE)", 
-				OmegaInt("01928346984375421764562384758123745894385395467") == 
+			testC("Operator == (LARGE)",
+				OmegaInt("01928346984375421764562384758123745894385395467") ==
 				OmegaInt("01928346984375421764562384758123745894385395467"));
 
-			
+
 			testC("Operator < (unequal)", OmegaInt(2) < OmegaInt(3));
 			testC("Operator < (equal)", !(OmegaInt(3) < OmegaInt(3)));
 			testC("Operator < (unequal (lager than))", !(OmegaInt(4) < OmegaInt(3)));

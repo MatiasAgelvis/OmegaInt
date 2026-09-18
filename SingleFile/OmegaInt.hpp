@@ -13,14 +13,14 @@
 
 typedef unsigned long long u64;
 
-// Maximum number of digits a field can have. (System depedent)
+// Maximum number of digits a field can have. (System dependent)
 const unsigned MAXDIGITS = floor( log10(std::numeric_limits<u64>::max()) - 1 );
 // const unsigned MAXDIGITS = 2; // for testing purposes
 // const unsigned MAXDIGITS = 4; // for testing purposes
 // const unsigned MAXDIGITS = 10; // for testing purposes
 // const unsigned MAXDIGITS = 18; // for testing purposes
 
-// Maximum value that a field can have. (System depedent), values are strictly less than
+// Maximum value that a field can have. (System dependent), values are strictly less than
 const u64 MAXFIELDVALUE = pow( 10, MAXDIGITS );
 
 // Number of digits al which it is safe to multiply two fields of an OmegaInt
@@ -39,9 +39,9 @@ class OmegaInt
 	private:
 		// Number of pieces the number is split into
 			u64 TOTALFIELDS;
-		// Pieces that comprice the number
+		// Pieces that comprise the number
 			u64* NUMBERS;
-		// Sing, is it positive?
+		// Sign, is it positive?
 			bool isPOSITIVE;
 		// Copy function
 			void _copy(OmegaInt const & other);
@@ -65,7 +65,7 @@ class OmegaInt
 				OmegaInt _karatsuba(OmegaInt const & other) const;
 
 		// Division Helper Functions
-				enum DivReturn { Quotient, Reminder };
+				enum DivReturn { Quotient, Remainder };
 				OmegaInt _removeTailZeros() const;
 				u64 _countTailZeros() const;
 				OmegaInt _longDiv(OmegaInt const & other, DivReturn ret) const;
@@ -80,9 +80,9 @@ class OmegaInt
 			OmegaInt(std::string num);
 			OmegaInt(char const* num);
 
-			// Number of fields and sing setted all to zero
+			// Number of fields and sign set to all zero
 			OmegaInt(u64 fields, bool pos);
-			// Number of fields and sing setted all to a value
+			// Number of fields and sign set to a value
 			OmegaInt(u64 fields, u64* nums, bool pos);
 			// Copy constructor
 			OmegaInt(OmegaInt const & other);
@@ -93,8 +93,8 @@ class OmegaInt
 		// Getters
 			// Returns the number of fields in the OmegaInt
 			unsigned fields() const;
-			// Returns the sing of the OmegaInt
-			bool sing() const;
+			// Returns the sign of the OmegaInt
+			bool sign() const;
 			// Absolute value, returns a positive copy of the object
 			OmegaInt abs() const;
 			// Returns the number of digits
@@ -107,11 +107,11 @@ class OmegaInt
 			bool odd () const;
 
 		// Setters
-			// Changes the sing of the OmegaInt
-			void changeSing();
+			// Changes the sign of the OmegaInt
+			void changeSign();
 			// set field 'i' to a value
 			void set (const unsigned i, u64 value);
-			// Assingment Operator
+			// Assignment Operator
 			void operator = (OmegaInt const & other);
 			void operator = (std::string num);
 			void operator = (char const* num);
@@ -276,7 +276,7 @@ OmegaInt::OmegaInt(std::string num)
 	if (num.empty()){ num = "0"; }
 
 	isPOSITIVE = true;
-	// check for a negative sing
+	// check for a negative sign
 	if (num.find('-') != string::npos)
 	{
 		isPOSITIVE = false;
@@ -311,7 +311,7 @@ OmegaInt::OmegaInt(char const* num)
 	*this = OmegaInt(std::string(num));
 };
 
-	// Number of fields and sing setted all to zero
+	// Number of fields and sign set to all zero
 OmegaInt::OmegaInt(u64 fields, bool pos)
 {
 	// calculate the number of fields required to hold that number
@@ -325,7 +325,7 @@ OmegaInt::OmegaInt(u64 fields, bool pos)
 	isPOSITIVE = pos;
 };
 
-	// Number of fields and sing setted all to a value
+	// Number of fields and sign set to a value
 OmegaInt::OmegaInt(u64 fields, u64* nums, bool pos)
 {
 	// calculate the number of fields required to hold that number
@@ -348,7 +348,7 @@ OmegaInt::OmegaInt(OmegaInt const & other)
 	// Destructor
 OmegaInt::~OmegaInt(){ free(NUMBERS); NUMBERS = NULL; };
 
-	// Assingment Operator
+	// Assignment Operator
 void OmegaInt::operator = (OmegaInt const & other)
 	{ if (this != &other) { _copy(other); } };
 
@@ -364,7 +364,7 @@ void OmegaInt::_copy(OmegaInt const & other)
 	if (NUMBERS != NULL){ free(NUMBERS); }
 
 	TOTALFIELDS = other.fields();
-	isPOSITIVE = other.sing();
+	isPOSITIVE = other.sign();
 	
 	NUMBERS = (u64*) calloc( TOTALFIELDS, sizeof(u64) );
 
@@ -375,14 +375,14 @@ void OmegaInt::_copy(OmegaInt const & other)
 	// Returns the number of fields in the OmegaInt
 unsigned OmegaInt::fields() const { return TOTALFIELDS; }
 
-	// Returns the sing of the OmegaInt
+	// Returns the sign of the OmegaInt
 bool OmegaInt::sing() const { return isPOSITIVE; }
 	
 	// Absolute value, returns a positive copy of the object
 OmegaInt OmegaInt::abs() const
 {
 	OmegaInt A(*this);
-	if ( ! A.isPOSITIVE ){ A.changeSing(); }
+	if ( ! A.isPOSITIVE ){ A.changeSign(); }
 	return A;
 };
 	// Returns the number of digits
@@ -402,8 +402,8 @@ bool OmegaInt::odd () const
 }
 
 // Setter
-	// Changes the sing of the OmegaInt
-void OmegaInt::changeSing(){ isPOSITIVE = !isPOSITIVE; };
+	// Changes the sign of the OmegaInt
+void OmegaInt::changeSign(){ isPOSITIVE = !isPOSITIVE; };
 
 // Getter. Make private?
 u64 OmegaInt::operator [] (const unsigned i) const { return NUMBERS[i]; }
@@ -419,11 +419,11 @@ bool OmegaInt::operator == (const OmegaInt &other) const
 {
 	const OmegaInt& A = *this;
 	const OmegaInt& B = other;
-	bool equalLength = A.fields() == B.fields();	// Different lenghts does NOT nesesarily mean
+	bool equalLength = A.fields() == B.fields();	// Different lengths does NOT necessarily mean
 	bool isAlonger = A.fields() > B.fields();		// that they are different numbers
 	unsigned min = isAlonger? B.fields(): A.fields();	// Pick the shortest one
 
-	if (A.sing() != B.sing()){ return false; }
+	if (A.sign() != B.sign()){ return false; }
 
 	for (unsigned i = 0; i < min; ++i)
 		{ if (A[i] != B[i]){ return false; } }
@@ -450,16 +450,16 @@ bool OmegaInt::operator >  (const OmegaInt &other) const
 	const OmegaInt& A = *this;
 	const OmegaInt& B = other;
 
-	bool equalLength = A.fields() == B.fields();	// Different lenghts does NOT nesesarily mean
+	bool equalLength = A.fields() == B.fields();	// Different lengths does NOT necessarily mean
 	bool isAlonger = A.fields() > B.fields();		// that they are different numbers
 	unsigned min = isAlonger? B.fields() : A.fields();	// Pick the shortest one
 	bool hasAgreaterABS;
 
-	// A is possitive an B negative
-	if (A.sing() and !B.sing()){ return true; }
+	// A is positive and B negative
+	if (A.sign() and !B.sign()){ return true; }
 	
-	// A is negative an B positive
-	if (!A.sing() and B.sing()){ return false; }
+	// A is negative andd B positive
+	if (!A.sign() and B.sign()){ return false; }
 
 	if (!equalLength)
 	{
@@ -480,7 +480,7 @@ bool OmegaInt::operator >  (const OmegaInt &other) const
 		}
 	}
 
-	return (A.sing() and B.sing())? hasAgreaterABS : !hasAgreaterABS;
+	return (A.sign() and B.sign())? hasAgreaterABS : !hasAgreaterABS;
 };
 bool OmegaInt::operator >= (const OmegaInt &other) const
 {
@@ -520,7 +520,7 @@ OmegaInt OmegaInt::_add(OmegaInt const & other) const
 OmegaInt OmegaInt::_subtract(OmegaInt const & other) const
 {
 	bool carry = false;
-	// returns OmegaInt's with APPROPRIATE sing given the operands
+	// returns OmegaInts with APPROPRIATE sign given the operands
 	/* For simplicity alising ( this - other ) = ( A - B ) = RESULT */
 	const OmegaInt& A = other.abs() > this->abs()? other : *this;
 	const OmegaInt& B = other.abs() > this->abs()? *this : other;
@@ -531,7 +531,7 @@ OmegaInt OmegaInt::_subtract(OmegaInt const & other) const
 	OmegaInt RESULT( Max+1, true );
 
 	if (other.abs() > this->abs())
-		{ RESULT.changeSing(); }
+		{ RESULT.changeSign(); }
 
 	u64 temp;
 
@@ -557,10 +557,10 @@ OmegaInt OmegaInt::operator + (OmegaInt const & other) const
 {
 	OmegaInt RESULT;
 
-	if      (  this->sing() and  other.sing() )  { RESULT = this->_add(other); }
-	else if ( !this->sing() and  other.sing() )  { RESULT = other._subtract(*this); }
-	else if (  this->sing() and !other.sing() )  { RESULT = this->_subtract(other); }
-	else /* ( !this->sing() and !other.sing() )*/{ RESULT = this->_add(other); RESULT.changeSing(); }
+	if      (  this->sing() and  other.sign() )  { RESULT = this->_add(other); }
+	else if ( !this->sing() and  other.sign() )  { RESULT = other._subtract(*this); }
+	else if (  this->sing() and !other.sign() )  { RESULT = this->_subtract(other); }
+	else /* ( !this->sing() and !other.sign() )*/{ RESULT = this->_add(other); RESULT.changeSign(); }
 
 	RESULT._maintenance();
 	return RESULT;
@@ -570,10 +570,10 @@ OmegaInt OmegaInt::operator - (OmegaInt const & other) const
 {
 	OmegaInt RESULT;
 
-	if      (  this->sing() and  other.sing() )  { RESULT = this->_subtract(other); }
-	else if ( !this->sing() and  other.sing() )  { RESULT = this->_add(other); RESULT.changeSing(); }
-	else if (  this->sing() and !other.sing() )  { RESULT = this->_add(other); }
-	else /* ( !this->sing() and !other.sing() )*/{ RESULT = other._subtract(*this); }
+	if      (  this->sing() and  other.sign() )  { RESULT = this->_subtract(other); }
+	else if ( !this->sing() and  other.sign() )  { RESULT = this->_add(other); RESULT.changeSign(); }
+	else if (  this->sing() and !other.sign() )  { RESULT = this->_add(other); }
+	else /* ( !this->sing() and !other.sign() )*/{ RESULT = other._subtract(*this); }
 
 	RESULT._maintenance();
 	return RESULT;
@@ -659,7 +659,7 @@ OmegaInt OmegaInt::operator * (OmegaInt const & other) const
 	const OmegaInt B = other.abs();
 
 	RESULT = A._karatsuba(B);
-	if ( this->sing() != other.sing() ){ RESULT.changeSing(); }
+	if ( this->sing() != other.sign() ){ RESULT.changeSign(); }
 	return RESULT;
 };
 
@@ -803,7 +803,7 @@ OmegaInt OmegaInt::operator / (OmegaInt const & other) const
 
 	RESULT = A._longDiv(B, Quotient);
 
-	if ( this->sing() != other.sing() ){ RESULT.changeSing(); }
+	if ( this->sing() != other.sign() ){ RESULT.changeSign(); }
 	return RESULT;
 };
 
@@ -816,7 +816,7 @@ OmegaInt OmegaInt::operator % (OmegaInt const & other) const
 	if (B == 0){ std::cout << "WARNING: Modulo by Zero" << std::endl; return OmegaInt(); }
 
 	// return A  - ( A / B ) * B;
-	return A ._longDiv( B, Reminder );
+	return A ._longDiv( B, Remainder );
 };
 
 // Abbreviated Operators

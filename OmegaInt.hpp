@@ -13,14 +13,14 @@
 
 typedef unsigned long long u64;
 
-// Maximum number of digits a field can have. (System depedent)
+// Maximum number of digits a field can have. (System dependent)
 const unsigned MAXDIGITS = floor( log10(std::numeric_limits<u64>::max()) - 1 );
 // const unsigned MAXDIGITS = 2; // for testing purposes
 // const unsigned MAXDIGITS = 4; // for testing purposes
 // const unsigned MAXDIGITS = 10; // for testing purposes
 // const unsigned MAXDIGITS = 18; // for testing purposes
 
-// Maximum value that a field can have. (System depedent), values are strictly less than
+// Maximum value that a field can have. (System dependent), values are strictly less than
 const u64 MAXFIELDVALUE = pow( 10, MAXDIGITS );
 
 // Number of digits al which it is safe to multiply two fields of an OmegaInt
@@ -39,9 +39,9 @@ class OmegaInt
 	private:
 		// Number of pieces the number is split into
 			u64 TOTALFIELDS;
-		// Pieces that comprice the number
+		// Pieces that comprise the number
 			u64* NUMBERS;
-		// Sing, is it positive?
+		// Sign, is it positive?
 			bool isPOSITIVE;
 		// Copy function
 			void _copy(OmegaInt const & other);
@@ -65,7 +65,7 @@ class OmegaInt
 				OmegaInt _karatsuba(OmegaInt const & other) const;
 
 		// Division Helper Functions
-				enum DivReturn { Quotient, Reminder };
+				enum DivReturn { Quotient, Remainder };
 				OmegaInt _removeTailZeros() const;
 				u64 _countTailZeros() const;
 				OmegaInt _longDiv(OmegaInt const & other, DivReturn ret) const;
@@ -80,9 +80,9 @@ class OmegaInt
 			OmegaInt(std::string num);
 			OmegaInt(char const* num);
 
-			// Number of fields and sing setted all to zero
+			// Number of fields and sign set to all zero
 			OmegaInt(u64 fields, bool pos);
-			// Number of fields and sing setted all to a value
+			// Number of fields and sign set to a value
 			OmegaInt(u64 fields, u64* nums, bool pos);
 			// Copy constructor
 			OmegaInt(OmegaInt const & other);
@@ -93,8 +93,8 @@ class OmegaInt
 		// Getters
 			// Returns the number of fields in the OmegaInt
 			unsigned fields() const;
-			// Returns the sing of the OmegaInt
-			bool sing() const;
+			// Returns the sign of the OmegaInt
+			bool sign() const;
 			// Absolute value, returns a positive copy of the object
 			OmegaInt abs() const;
 			// Returns the number of digits
@@ -107,11 +107,11 @@ class OmegaInt
 			bool odd () const;
 
 		// Setters
-			// Changes the sing of the OmegaInt
-			void changeSing();
+			// Changes the sign of the OmegaInt
+			void changeSign();
 			// set field 'i' to a value
 			void set (const unsigned i, u64 value);
-			// Assingment Operator
+			// Assignment Operator
 			void operator = (OmegaInt const & other);
 			void operator = (std::string num);
 			void operator = (char const* num);
