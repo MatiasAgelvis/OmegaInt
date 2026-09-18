@@ -1,19 +1,39 @@
 # OmegaInt
 
 [![CodeFactor](https://www.codefactor.io/repository/github/matiasagelvis/omegaint/badge)](https://www.codefactor.io/repository/github/matiasagelvis/omegaint)
-![Size](https://github-size-badge.herokuapp.com/matiasagelvis/omegaint.svg)
 
-Store arbitrarily big integers in C++
+Arbitrarily big integers in C++14.
 
-This library is intended to add arbitrarily long ints to C++ in a convenient and  versatile way, it is not has tight in memory has others, for every 64 bits in memory one is wasted, but hopefully it compensates in versatility with the ability to make operations between OmegaInt's and other numerical types and std::strings, like 
-`OmegaInt(27) - "7"` or 
-`OmegaInt(15) + int(14)` and
-`OmegaInt(9)^3 == "729"`
+OmegaInt stores numbers as an array of 64-bit fields, each holding 18 decimal digits. It trades a bit of memory efficiency for a convenient API — you can mix `OmegaInt` with `int`, `std::string`, and other `OmegaInt` values seamlessly:
 
-The Contents of the OmegaUtils also allows you to swap the contents of two OmegaInts, calculate the GCD and lcm.
+```cpp
+OmegaInt(27) - "7"          // 20
+OmegaInt(15) + int(14)      // 29
+OmegaInt(9) ^ 3 == "729"    // true
+```
 
-For convenience and portability a single header file is located in the folder SingleFile, also a robust makefile made by Wade Fagen-Ulmschneider, Jeffrey Tolar, and Eric Huber at the UIUC is provided.
+## Features
 
-The main.cpp shows many of the functions of the OmegaInt, and can be compiled into a test program to show many of the features
+- **Arithmetic:** `+`, `-`, `*`, `/`, `%`, `^` (power)
+- **Comparisons:** `==`, `!=`, `<`, `>`, `<=`, `>=`
+- **Mixed types:** operate on `OmegaInt` with `int`, `long long`, `std::string`, etc.
+- **Karatsuba multiplication** for efficient large-number multiplication
+- **GCD, LCM, min, max** via `OmegaUtils`
+
+## Building
+
+```bash
+make          # compile
+./test all    # run all tests
+./test help   # see available test suites
+```
+
+## Single Header
+
+A self-contained single-header version is available at `SingleFile/OmegaInt.hpp` — just include it and you're good to go.
+
+## Acknowledgments
+
+Build system from [UIUC's CS courses](https://github.com/illinois-cs241) by Wade Fagen-Ulmschneider, Jeffrey Tolar, and Eric Huber.
 
 ![logo](logo.png)
