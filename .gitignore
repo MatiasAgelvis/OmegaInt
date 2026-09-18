@@ -3,7 +3,6 @@
 */*.o
 *.sublime-project
 .objs/
-main
 test
 miniKaratsuba
 div
