@@ -1,11 +1,5 @@
 #include "OmegaInt.hpp"
 
-void bug()
-{
-	static unsigned i = 0;
-	cout << i++;_
-}
-
 	// Empty
 OmegaInt::OmegaInt()
 {

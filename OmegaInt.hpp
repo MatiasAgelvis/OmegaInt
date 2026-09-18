@@ -9,8 +9,6 @@
 
 #pragma once
 
-#define _ std::cin.get();
-
 typedef unsigned long long u64;
 
 // Maximum number of digits a field can have. (System dependent)
